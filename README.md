@@ -1,29 +1,29 @@
 # Google Cloud Firestore Emulator
 
-A [Google Cloud Firestore Emulator](https://cloud.google.com/sdk/gcloud/reference/beta/emulators/firestore/) container image. The image is meant to be used for creating an standalone emulator for testing.
+[![CircleCI](https://circleci.com/gh/mtlynch/firestore-emulator.svg?style=svg)](https://circleci.com/gh/mtlynch/firestore-emulator) [![Docker Pulls](https://img.shields.io/docker/pulls/mtlynch/firestore-emulator.svg?maxAge=604800)](https://hub.docker.com/r/mtlynch/firestore-emulator/) [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](LICENSE)
 
-This image is a fork from [Perrystallings work](https://github.com/perrystallings/firestore-emulator-docker), which is a fork of [SingularitiesCR work on the Datastore Emulator](https://github.com/SingularitiesCR/datastore-emulator-docker).
+A [Google Cloud Firestore Emulator](https://cloud.google.com/sdk/gcloud/reference/beta/emulators/firestore/) container image. The image is meant to be used for creating an standalone emulator for testing.
 
 ## Quickstart
 
-```BASH
+```bash
 docker run \
   --name firestore-emulator \
   -v ${PWD}/firestore-data:/opt/data \
   -e "FIRESTORE_PROJECT_ID=project-test" \
   -p 8080:8080 \
   -d \
-  pathmotion/firestore-emulator-docker
+  mtlynch/firestore-emulator-docker
 ```
 
 or with compose
 
-```YAML
+```yaml
 version: "2"
 
 services:
   firestore-emulator:
-    image: pathmotion/cloud-firestore-emulator
+    image: mtlynch/cloud-firestore-emulator
     volumes:
       - firestore-data:/opt/data
     environment:
@@ -67,9 +67,10 @@ This image contains a script named `start-firestore` (included in the PATH). Thi
 
 By default, the following command is called:
 
-```sh
+```bash
 start-firestore
 ```
+
 ### Starting an emulator with options
 
 This image comes with options. Check [Firestore Emulator GCloud Wide Flags](https://cloud.google.com/sdk/gcloud/reference/beta/emulators/firestore/). `--legacy`, `--data-dir` and `--host-port` are not supported by this image.
@@ -78,12 +79,12 @@ This image comes with options. Check [Firestore Emulator GCloud Wide Flags](http
 
 The easiest way to create an emulator with this image is by using [Docker Compose](https://docs.docker.com/compose). The following snippet can be used as a `docker-compose.yml` for a firestore emulator:
 
-```YAML
+```yaml
 version: "2"
 
 services:
   firestore:
-    image: perrystallings/cloud-firestore-emulator
+    image: mtlynch/cloud-firestore-emulator
     volumes:
       - firestore-data:/opt/data
     environment:
@@ -93,4 +94,6 @@ services:
     environment:
       - FIRESTORE_EMULATOR_HOST=firestore
       - FIRESTORE_PROJECT_ID=project-test
+    depends_on:
+      - firestore
 ```
