@@ -43,6 +43,9 @@ services:
 * `FIRESTORE_PROJECT_ID`: This is the Google Cloud Project ID that the emulator uses.
   * This does not have to correspond to a real Google Cloud Project ID, although it can if you want it to.
   * Your application must set its firestore project ID value to match this environment variable.
+  * default: `dummy-firestore-id`
+* `PORT`: The port on which the firestore emulator listens for HTTP requests.
+  * default: `8080`
 
 ## Connecting to the emulator
 
