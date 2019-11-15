@@ -1,18 +1,12 @@
-# Version. Can change in build progress
-ARG GCLOUD_SDK_VERSION=alpine
+ARG GCLOUD_SDK_VERSION=271.0.0-alpine
 
-# Use google cloud sdk
 FROM google/cloud-sdk:$GCLOUD_SDK_VERSION
 
-# Install Java 8 for Datastore emulator
-RUN apk add --update --no-cache openjdk8-jre &&\
-    gcloud components install cloud-firestore-emulator beta --quiet
+RUN gcloud components install cloud-firestore-emulator beta --quiet
 
-# Volume to persist Datastore data
-VOLUME /opt/data
+COPY entrypoint.sh .
 
-COPY start-firestore .
+ENV PORT 8080
+EXPOSE "$PORT"
 
-EXPOSE 8080
-
-ENTRYPOINT ["./start-firestore"]
+ENTRYPOINT ["./entrypoint.sh"]

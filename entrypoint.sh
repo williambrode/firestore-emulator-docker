@@ -1,4 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
+set -xe
 
 # Check user environment variable
 if [[ -z "${FIRESTORE_PROJECT_ID}" ]]; then
@@ -7,7 +9,8 @@ if [[ -z "${FIRESTORE_PROJECT_ID}" ]]; then
 fi
 
 # Config gcloud project
-gcloud config set project ${FIRESTORE_PROJECT_ID}
+gcloud config set project "${FIRESTORE_PROJECT_ID}"
 
 # Start emulator
-gcloud beta emulators firestore start --host-port=0.0.0.0:8080
+gcloud beta emulators firestore start \
+  --host-port="0.0.0.0:${PORT}"
