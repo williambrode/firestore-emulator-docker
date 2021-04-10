@@ -1,7 +1,10 @@
 version: 2.1
 jobs:
   build:
-    machine: true
+    machine:
+      # Choose an explicit machine image so that we get the latest version of
+      # docker-compose.
+      image: ubuntu-2004:202010-01
     steps:
       - checkout
       - run:
