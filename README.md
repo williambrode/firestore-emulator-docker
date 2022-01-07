@@ -29,6 +29,8 @@ services:
     environment:
       - FIRESTORE_PROJECT_ID=dummy-project-id
       - PORT=8200
+    ports:
+      - 8200:8200
   app:
     image: your-app-image
     environment:
